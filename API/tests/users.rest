@@ -1,0 +1,67 @@
+@baseUrl = http://localhost:3000/api
+@authToken = {{login.response.body.token}}
+
+### Register user 
+# @name register
+
+POST  {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "name": "Teszt Elek",
+    "email": "tesztelek4@gmail.com",
+    "password": "123456",
+    "address": "6500 Baja, Béke tér 1."
+}
+
+### login user
+# @name login
+
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "tesztelek1@gmail.com",
+    "password": "123456"
+}
+
+### get all users
+# @name getUsers
+
+GET {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### Get user by ID
+# @name getUserById
+@userId = e6aeffab-7d40-4797-8cd4-537236c5a8f2
+# 
+GET {{baseUrl}}/users/byid/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### Get logged-in user profile
+# @name getLoggedUserProfile
+
+GET {{baseUrl}}/users/profile
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### Update user
+# @name updateUser
+
+PATCH {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "name": "Teszt Elek Jr.",
+    "address": "6500 Baja, Dózsa György út 10."
+}
+
+### Delete user
+# @name deleteUser
+
+DELETE {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

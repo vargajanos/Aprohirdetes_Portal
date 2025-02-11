@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:3000/api
+@authToken = {{login.response.body.token}}
+
+### Login User
+# @name login
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "tesztelek2@gmail.com",
+    "password": "123456"
+}
+
+### Create Advertisement
+# @name addAdvertisement
+POST {{baseUrl}}/adv
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "userId": "8462e28a-4113-44b2-b179-6038d2c96b6c",
+    "category": "játék",
+    "price": 5000,
+    "description": "Ez egy teszt hirdetés",
+    "title": "Teszt Játék"
+}
+
+
+### Get All Advertisements
+# @name getAllAdvertisements
+GET {{baseUrl}}/adv
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### Get Advertisement by ID
+# @name getAdvertisementById
+GET {{baseUrl}}/adv/byid/58d4eb5a-33da-43fc-bfdc-0946fcda7bb1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### Update Advertisement
+# @name updateAdvertisement
+PATCH {{baseUrl}}/adv/58d4eb5a-33da-43fc-bfdc-0946fcda7bb1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "price": 6000,
+    "title": "Frissített Teszt Játék"
+}
+
+### Delete Advertisement
+# @name deleteAdvertisement
+DELETE {{baseUrl}}/adv/58d4eb5a-33da-43fc-bfdc-0946fcda7bb1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
