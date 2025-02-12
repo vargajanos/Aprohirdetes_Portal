@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor() { }
 
-  private tokenName = "tarhelyszolgaltato";
+  private tokenName = "aphrodites";
 
   private isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$: Observable<boolean> = this.isLoggedIn.asObservable();
@@ -19,12 +19,12 @@ export class AuthService {
   }
 
   login(token:string){
-    localStorage.setItem("tarhelyszolgaltato", token);
+    localStorage.setItem("aphrodites", token);
     this.isLoggedIn.next(true);
   }
 
   logout(){
-    localStorage.removeItem("tarhelyszolgaltato");
+    localStorage.removeItem("aphrodites");
     this.isLoggedIn.next(false);
   }
 

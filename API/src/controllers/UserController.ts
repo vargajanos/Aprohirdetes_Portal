@@ -5,7 +5,7 @@ import { deleteUser, getAllUsers, getUserById, loginUser, registerUser, updateUs
 export const register = async (req, res, next) => {
     try {
         const { name, email, password, address } = req.body;
-        if (!name || !email || !password || address) {
+        if (!name || !email || !password || !address) {
             return res.status(400).json({ message: "Hiányzó adatok!" });
         }
         res.status(201).json(await registerUser(name, email, password, address));
