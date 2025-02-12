@@ -5,7 +5,7 @@ import { generateToken } from "../utils/token";
  
 const userRepository = AppDataSource.getRepository(User);
  
-export const registerUser = async (name: string, email: string, password: string, address?: string) => {
+export const registerUser = async (name: string, email: string, password: string, address: string) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = userRepository.create({ name, email, address, password: hashedPassword });
     return await userRepository.save(user);

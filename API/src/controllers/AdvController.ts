@@ -3,7 +3,6 @@ import { addAdv, deleteAdv, getAdvById, getAllAdv, updateAdv } from "../services
 export const addAdvertisement = async (req, res, next) => {
     try {
         const { userId, category, price, description, title, image } = req.body;
-        //const image = req.file ? req.file.filename : null;  // Ha van fájl, akkor annak a neve lesz a 'image' mezőben
 
         if (!category || !price || !description || !userId || !title) {
             return res.status(400).json({ message: "Hiányzó adatok!" });
