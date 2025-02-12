@@ -1,1 +1,27 @@
-<p>registration works!</p>
+<div class="flex flex-col pt-2 w-80">
+    <mat-form-field >
+      <mat-label>Name</mat-label>
+      <input [(ngModel)]="user.name" matInput>
+    </mat-form-field>
+  
+    <mat-form-field >
+      <mat-label>Address</mat-label>
+      <input [(ngModel)]="user.address" matInput>
+    </mat-form-field>
+  
+    <mat-form-field >
+      <mat-label>Email</mat-label>
+      <input [(ngModel)]="user.email" matInput>
+    </mat-form-field>
+  
+    <mat-form-field >
+      <mat-label>Password</mat-label>
+      <input [(ngModel)]="user.password" type="password" matInput>
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-label>Confirm password</mat-label>
+        <input [(ngModel)]="user.confirm" type="password" matInput>
+    </mat-form-field>
+    <button (click)="Registration()" >Registration</button>
+</div>
