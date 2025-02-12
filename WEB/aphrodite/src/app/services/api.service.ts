@@ -10,7 +10,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private tokenName = "tarhelyszolgaltato";
+  private tokenName = "aphrodites";
   private server = `http://localhost:3000/api`;
 
   getToken():String | null{
@@ -64,14 +64,6 @@ export class ApiService {
     return this.http.delete(this.server + '/'+table+ '/' +id, this.tokenHeader());
   }
 
-  delete2(table:string, name:string){
-    return this.http.delete('http://localhost:3000/' +table +'/' + name, this.tokenHeader());
-  }
-
-  sendMail(data:object){
-    return this.http.post(this.server + '/send', data);
-  }
-
   updatePasswd(id:string,data:object){
     return this.http.patch(this.server + '/public/users/id/eq',+id, data);
   }
@@ -79,7 +71,7 @@ export class ApiService {
   uploadFile(file:File){
     const formData = new FormData();
     formData.append('file', file, file.name);
-    return this.http.post(this.server + '/upload', formData, this.tokenHeader());
+    return this.http.post('http://localhost:3000/upload', formData, this.tokenHeader());
   }
 
   deleteFile(file:File){

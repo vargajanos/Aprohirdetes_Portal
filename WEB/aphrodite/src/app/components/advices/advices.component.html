@@ -1,1 +1,53 @@
-<p>advices works!</p>
+<div class="flex flex-col pt-2 w-80">
+    <mat-form-field >
+      <mat-label>Title</mat-label>
+      <input [(ngModel)]="newadv.title" matInput>
+    </mat-form-field>
+  
+    <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select [(ngModel)]="newadv.category">
+          @for (fasz of categorys; track fasz) {
+            <mat-option [value]="fasz.value">{{fasz.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+  
+    <mat-form-field >
+      <mat-label>Price</mat-label>
+      <input [(ngModel)]="newadv.price" type="number" matInput min="0">
+    </mat-form-field>
+  
+    <mat-form-field >
+      <mat-label>Description</mat-label>
+      <textarea [(ngModel)]="newadv.description" matInput></textarea>
+    </mat-form-field>
+
+    <div class="container">
+        <input type="file" style="display: none" #fileInput accept="image/*" (change)="onChangeFileInput()" />
+        <button mat-raised-button color="primary" class="file-select-button" (click)="onClickFileInputButton()">
+          Select image
+        </button>
+      
+        <p class="file-name" *ngIf="!file; else fileName">No selected</p>
+        <ng-template #fileName>
+          <p class="file-name">{{ file?.name }}</p>
+        </ng-template>
+      </div>
+    <button (click)="addAdv()" >Meghirdet</button>
+</div>
+
+<div *ngFor="let qky of advices">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{qky.title}}</mat-card-title>
+            <mat-card-subtitle>{{qky.category}}</mat-card-subtitle>
+            <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+            {{qky.description}}
+        </mat-card-content>
+    </mat-card>
+</div>
