@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "name": "Teszt Elek",
-    "email": "tesztelek4@gmail.com",
+    "email": "tesztelek1@gmail.com",
     "password": "123456",
     "address": "6500 Baja, Béke tér 1."
 }
@@ -21,7 +21,7 @@ POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-    "email": "tesztelek1@gmail.com",
+    "email": "tesztelek2@gmail.com",
     "password": "123456"
 }
 

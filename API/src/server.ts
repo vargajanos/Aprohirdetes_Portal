@@ -38,20 +38,32 @@ const storage = multer.diskStorage({
 // Multer upload konfiguráció
 const upload = multer({ storage: storage });
 
-// Fájl feltöltése
-app.post('/upload', authMiddleware, upload.single('file'), (req, res) => {
-    if (!req.file) {
-        return sendResults(res, '', { message: 'Hiba történt a feltöltéskor!' });
-    }
-    sendResults(res, '', { message: 'Sikeres képfeltöltés!', file: req.file });
+app.post('/upload', authMiddleware, (req, res) => {
+    upload.single('file')(req, res, (err) => {
+        if (err) {
+            console.error('File upload error:', err);
+            return sendResults(res, '', { message: 'Hiba történt a feltöltéskor!', error: err.message });
+        }
+
+        if (!req.file) {
+            console.error('File upload failed: req.file is undefined', {
+                body: req.body,
+                headers: req.headers
+            });
+            return sendResults(res, '', { message: 'Hiba történt a feltöltéskor! Fájl nem érkezett.' });
+        }
+
+        sendResults(res, '', { message: 'Sikeres képfeltöltés!', file: req.file });
+    });
 });
+
 
 
 
 // Fájl törlése
 app.delete('/delete/:filename', authMiddleware, (req, res) => {
     const filename = req.params.filename;  // Fájl neve az URL paraméterekből
-    const filePath = path.join(__dirname, 'uploads', filename);  // A fájl teljes elérési útja
+    const filePath = path.join(path.resolve(__dirname, '..'), 'uploads', filename);  // A fájl teljes elérési útja
 
     if (!fs.existsSync(filePath)) {
         return sendResults(res, '', { message: 'A fájl nem található' });
