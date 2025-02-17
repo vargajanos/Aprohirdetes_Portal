@@ -5,7 +5,7 @@
     </mat-form-field>
   
     <mat-form-field>
-        <mat-label>Favorite food</mat-label>
+        <mat-label>Category</mat-label>
         <mat-select [(ngModel)]="newadv.category">
           @for (fasz of categorys; track fasz) {
             <mat-option [value]="fasz.value">{{fasz.viewValue}}</mat-option>
