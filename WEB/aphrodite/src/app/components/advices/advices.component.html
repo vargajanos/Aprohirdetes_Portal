@@ -49,5 +49,6 @@
         <mat-card-content>
             {{qky.description}}
         </mat-card-content>
+        <button *ngIf="qky.userId == loggeduserId" (click)="dilit(qky.id, qky.image)" >Meghirdet</button>
     </mat-card>
 </div>

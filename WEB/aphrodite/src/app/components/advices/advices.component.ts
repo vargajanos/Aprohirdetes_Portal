@@ -14,7 +14,8 @@ interface advice {
   price: number,
   description: string,
   title: string,
-  image: any
+  image: any,
+  id: string
 }
 
 @Component({
@@ -31,9 +32,10 @@ export class AdvicesComponent implements OnInit {
     private api:ApiService,
     private auth:AuthService,
   ){}
-
+  loggeduserId = ""
   ngOnInit(): void {
     this.getAdvicesSZEX()
+    this.loggeduserId = this.auth.loggedUser().data.id
   }
 
   categorys: any[] = [
@@ -54,11 +56,11 @@ export class AdvicesComponent implements OnInit {
     price: 0,
     description: "",
     title: "",
-    image: ""
+    image: "",
+    id: ""
   }
 
   advices:advice[] = []
-
   addAdv(){
     this.newadv.userId = this.auth.loggedUser().data.id
     console.log(this.newadv)
@@ -95,6 +97,16 @@ export class AdvicesComponent implements OnInit {
     this.api.selectAll("adv").subscribe((res:any)=>{
       this.advices=res
       console.log(this.advices)
+    })
+  }
+
+  dilit(id: string, imgname: string){
+    this.api.delete("advertisement", id).subscribe(res=>{
+      this.api.deleteFile(imgname).subscribe(res=>{
+        if(res){
+          alert("Sikeres törlés")
+        }
+      })
     })
   }
 }

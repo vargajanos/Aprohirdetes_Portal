@@ -74,8 +74,8 @@ export class ApiService {
     return this.http.post('http://localhost:3000/upload', formData, this.tokenHeader());
   }
 
-  deleteFile(file:File){
-    return this.http.delete(this.server + '/delete'+file, this.tokenHeader());
+  deleteFile(file:string){
+    return this.http.delete(this.server + '/delete/'+file, this.tokenHeader());
   }
 
   post(name:string, data:object){
