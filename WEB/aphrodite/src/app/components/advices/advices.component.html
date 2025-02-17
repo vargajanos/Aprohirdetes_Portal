@@ -35,22 +35,35 @@
         </ng-template>
       </div>
     <button (click)="addAdv()" >Meghirdet</button>
+    
+    <div class="search-container">
+      <mat-form-field>
+        <mat-label>Kategória</mat-label>
+        <mat-select [(ngModel)]="searchCategory" (selectionChange)="filterAdvices()">
+          <mat-option [value]="''">Minden kategória</mat-option>
+          <mat-option *ngFor="let cat of categorys" [value]="cat.value">{{ cat.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>Keresés cím alapján</mat-label>
+        <input matInput [(ngModel)]="searchText" (input)="filterAdvices()">
+      </mat-form-field>
+    </div>
 </div>
 
-<div *ngFor="let qky of advices">
-    <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>{{qky.title}}</mat-card-title>
-            <mat-card-subtitle>{{qky.category}}</mat-card-subtitle>
-            <img *ngIf="qky.image" mat-card-xl-image [src]="'http://localhost:3000/uploads/' + qky.image" alt="{{qky.title}}">
-            <img *ngIf="!qky.image" mat-card-xl-image src="https://static.vecteezy.com/system/resources/previews/008/695/917/non_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg" alt="{{qky.title}}">
-            <mat-card-subtitle>Ár: {{qky.price}} ¥</mat-card-subtitle>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>Desc:
-            {{qky.description}}
-        </mat-card-content>
-        <button *ngIf="qky.user.id === loggeduserId" (click)="dilit(qky.id, qky.image)" >Törlés</button>
-    </mat-card>
+
+
+<div *ngFor="let qky of filteredAdvices">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{qky.title}}</mat-card-title>
+      <mat-card-subtitle>{{qky.category}}</mat-card-subtitle>
+      <img *ngIf="qky.image" mat-card-xl-image [src]="'http://localhost:3000/uploads/' + qky.image" alt="{{qky.title}}">
+      <img *ngIf="!qky.image" mat-card-xl-image src="https://static.vecteezy.com/system/resources/previews/008/695/917/non_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg" alt="{{qky.title}}">
+      <mat-card-subtitle>Ár: {{qky.price}} ¥</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>Desc: {{qky.description}}</mat-card-content>
+    <button *ngIf="qky.user.id === loggeduserId" (click)="dilit(qky.id, qky.image)">Törlés</button>
+  </mat-card>
 </div>

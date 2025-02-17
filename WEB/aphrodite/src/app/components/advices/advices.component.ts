@@ -32,6 +32,10 @@ export class AdvicesComponent implements OnInit {
     private api:ApiService,
     private auth:AuthService,
   ){}
+
+  searchText: string = "";
+  searchCategory: string = "";
+  filteredAdvices: any[] = [];
   loggeduserId = ""
   ngOnInit(): void {
     this.getAdvicesSZEX()
@@ -104,11 +108,19 @@ export class AdvicesComponent implements OnInit {
 
   getAdvicesSZEX(){
     this.api.selectAll("adv").subscribe((res:any)=>{
-      this.advices=res
+      this.advices = res;
+      this.filteredAdvices = res;
       console.log(this.advices)
     })
   }
 
+  filterAdvices() {
+    this.filteredAdvices = this.advices.filter(adv => 
+      (this.searchCategory ? adv.category === this.searchCategory : true) &&
+      (this.searchText ? adv.title.toLowerCase().includes(this.searchText.toLowerCase()) : true)
+    );
+  }
+  
   dilit(id: string, imgname: string){
     this.api.delete("adv", id).subscribe(res=>{
       this.api.deleteFile(imgname).subscribe(res=>{
