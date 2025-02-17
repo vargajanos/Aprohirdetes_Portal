@@ -13,7 +13,11 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));  // Statikus fájlok szolgáltatása az 'uploads' mappából
+const uploadsPath = path.join(__dirname, '..', 'uploads');
+console.log("Serving static files from:", uploadsPath);
+
+app.use('/uploads', express.static(uploadsPath)); // Statikus fájlok szolgáltatása az 'uploads' mappából
+
 
 AppDataSource.initialize()
 .then(()=>{
