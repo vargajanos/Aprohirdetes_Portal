@@ -43,7 +43,7 @@
           <mat-card-title-group>
             <mat-card-title>{{qky.title}}</mat-card-title>
             <mat-card-subtitle>{{qky.category}}</mat-card-subtitle>
-            <img mat-card-xl-image src="https://media.istockphoto.com/id/1147544807/hu/vektor/miniat%C5%B1r-k%C3%A9p-vektorgrafika.jpg?s=1024x1024&w=is&k=20&c=eDkqaJSY5laed-6Ec5qPoDobH86AYJvsvpx5CWizkR4=" >
+            <img mat-card-xl-image [src]="'http://localhost:3000/uploads/' + qky.image" alt="{{qky.title}}">
           </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>
