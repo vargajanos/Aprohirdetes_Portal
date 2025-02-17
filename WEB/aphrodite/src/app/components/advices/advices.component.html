@@ -43,12 +43,14 @@
           <mat-card-title-group>
             <mat-card-title>{{qky.title}}</mat-card-title>
             <mat-card-subtitle>{{qky.category}}</mat-card-subtitle>
-            <img mat-card-xl-image [src]="'http://localhost:3000/uploads/' + qky.image" alt="{{qky.title}}">
+            <img *ngIf="qky.image" mat-card-xl-image [src]="'http://localhost:3000/uploads/' + qky.image" alt="{{qky.title}}">
+            <img *ngIf="!qky.image" mat-card-xl-image src="https://static.vecteezy.com/system/resources/previews/008/695/917/non_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg" alt="{{qky.title}}">
+            <mat-card-subtitle>Ár: {{qky.price}} ¥</mat-card-subtitle>
           </mat-card-title-group>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content>Desc:
             {{qky.description}}
         </mat-card-content>
-        <button *ngIf="qky.userId == loggeduserId" (click)="dilit(qky.id, qky.image)" >Meghirdet</button>
+        <button *ngIf="qky.user.id === loggeduserId" (click)="dilit(qky.id, qky.image)" >Törlés</button>
     </mat-card>
 </div>

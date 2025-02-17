@@ -14,7 +14,7 @@ interface advice {
   price: number,
   description: string,
   title: string,
-  image: any,
+  image?: any,
   id: string
 }
 
@@ -36,6 +36,7 @@ export class AdvicesComponent implements OnInit {
   ngOnInit(): void {
     this.getAdvicesSZEX()
     this.loggeduserId = this.auth.loggedUser().data.id
+    console.log(this.loggeduserId)
   }
 
   categorys: any[] = [
@@ -60,22 +61,30 @@ export class AdvicesComponent implements OnInit {
     id: ""
   }
 
-  advices:advice[] = []
+  advices:any[] = []
   addAdv(){
     this.newadv.userId = this.auth.loggedUser().data.id
     console.log(this.newadv)
     
-    this.api.uploadFile(this.newadv.image).subscribe((res:any)=>{
-      this.newadv.image = res.file.filename
-      console.log(this.newadv)
+    if(this.newadv.image){
+      this.api.uploadFile(this.newadv.image).subscribe((res:any)=>{
+        this.newadv.image = res.file.filename
+        console.log(this.newadv)
+        this.api.insert("adv", this.newadv).subscribe(res=>{
+          if(res){
+            alert("minden fasza")
+            this.getAdvicesSZEX()
+          }
+        })
+      })
+    }else{
       this.api.insert("adv", this.newadv).subscribe(res=>{
         if(res){
           alert("minden fasza")
           this.getAdvicesSZEX()
         }
       })
-    })
-
+    }
   }
 
   @ViewChild('fileInput')
@@ -101,10 +110,11 @@ export class AdvicesComponent implements OnInit {
   }
 
   dilit(id: string, imgname: string){
-    this.api.delete("advertisement", id).subscribe(res=>{
+    this.api.delete("adv", id).subscribe(res=>{
       this.api.deleteFile(imgname).subscribe(res=>{
         if(res){
           alert("Sikeres törlés")
+          this.getAdvicesSZEX()
         }
       })
     })
