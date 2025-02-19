@@ -77,6 +77,15 @@ export class AdvicesComponent implements OnInit {
         this.api.insert("adv", this.newadv).subscribe(res=>{
           if(res){
             alert("minden fasza")
+            this.newadv ={
+              userId: "",
+              category: "",
+              price: 0,
+              description: "",
+              title: "",
+              image: "",
+              id: ""
+            }
             this.getAdvicesSZEX()
           }
         })
@@ -85,6 +94,15 @@ export class AdvicesComponent implements OnInit {
       this.api.insert("adv", this.newadv).subscribe(res=>{
         if(res){
           alert("minden fasza")
+          this.newadv ={
+            userId: "",
+            category: "",
+            price: 0,
+            description: "",
+            title: "",
+            image: "",
+            id: ""
+          }
           this.getAdvicesSZEX()
         }
       })
@@ -122,13 +140,23 @@ export class AdvicesComponent implements OnInit {
   }
   
   dilit(id: string, imgname: string){
-    this.api.delete("adv", id).subscribe(res=>{
-      this.api.deleteFile(imgname).subscribe(res=>{
-        if(res){
-          alert("Sikeres törlés")
-          this.getAdvicesSZEX()
-        }
+    if (confirm("Biztos törlöd?")) {
+      this.api.delete("adv", id).subscribe(res=>{
+        if (res) {
+          if (imgname) {
+            this.api.deleteFile(imgname).subscribe(res=>{
+              if(res){
+                this.getAdvicesSZEX()
+              }
+            })
+          } 
+          else{
+            alert("Sikeres törlés")
+            this.getAdvicesSZEX()
+          }
+          }
+
       })
-    })
+    }
   }
 }
